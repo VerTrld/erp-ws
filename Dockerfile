@@ -7,8 +7,7 @@ RUN npm install
 
 COPY . .
 
-# RUN npx prisma generate
-COPY generated ./generated
+RUN npx prisma generate
 RUN npm run build
 
 FROM node:20-alpine
@@ -20,7 +19,6 @@ RUN npm install --only=production
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/generated ./generated
 COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 3006
