@@ -1,0 +1,17 @@
+kind: pipeline
+type: docker
+name: erp-ws
+
+steps:
+  - name: build
+    image: plugins/docker
+    settings:
+      tags: ${DRONE_TAG}
+      dockerfile: Dockerfile
+      registry: 172.22.154.209:5000
+      repo: 172.22.154.209:5000/web-ws
+      insecure: true
+
+trigger:
+  branch:
+    - master
