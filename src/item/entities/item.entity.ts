@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ItemNature } from 'generated/prisma/enums';
+import { ItemNature } from '@prisma/client';
 
 export class Item {
   @ApiProperty()
