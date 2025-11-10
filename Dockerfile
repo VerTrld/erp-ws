@@ -15,17 +15,18 @@ COPY . .
 
 RUN npm run build
 
+RUN echo "=== Build complete, checking dist folder ===" && ls -la dist/
+
 FROM node:20-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install --only=production
-
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
 
+RUN echo "=== Checking copied files ===" && ls -la /app/dist/
 
 EXPOSE 3006
 
